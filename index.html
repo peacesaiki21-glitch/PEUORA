@@ -654,10 +654,7 @@ const missed =
 
             </div>
 
-            <div class="status ${done ? "done" : ""}">
-              ${done ? "Completed" : "Upcoming"}
-            </div>
-          `;
+            <div class="status ${done ? "Completed" : missed ? "Missed" : "Upcoming"}
 
           schedule.appendChild(item);
         }
