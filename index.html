@@ -21,15 +21,25 @@
       min-height: 100vh;
     }
 
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
     .app {
       width: 100%;
       max-width: 480px;
-      min-height: 100vh;
       margin: auto;
-      padding: 28px 20px;
+      min-height: 100vh;
+      padding: 26px 20px 40px;
       background:
         radial-gradient(
-          circle at 80% 10%,
+          circle at 85% 5%,
           rgba(67, 217, 230, 0.15),
           transparent 30%
         ),
@@ -40,7 +50,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 35px;
+      margin-bottom: 34px;
     }
 
     .brand {
@@ -51,17 +61,13 @@
     }
 
     .settings {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
+      width: 44px;
+      height: 44px;
       border: 1px solid rgba(155, 231, 215, 0.15);
-      background: rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
       color: #F4FAFA;
-      font-size: 19px;
-    }
-
-    .greeting {
-      margin-bottom: 25px;
+      font-size: 18px;
     }
 
     .greeting p {
@@ -73,99 +79,96 @@
     .greeting h1 {
       font-size: 30px;
       line-height: 1.15;
+      margin-bottom: 24px;
     }
 
-    .water-card {
-      position: relative;
-      overflow: hidden;
-      padding: 30px 22px;
+    .hero {
+      padding: 25px;
       border-radius: 28px;
-      background: linear-gradient(
-        145deg,
-        rgba(67, 217, 230, 0.16),
-        rgba(155, 231, 215, 0.05)
-      );
-      border: 1px solid rgba(67, 217, 230, 0.18);
-      text-align: center;
-    }
-
-    .water-card::before {
-      content: "";
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      background: rgba(67, 217, 230, 0.08);
-      border-radius: 50%;
-      top: -90px;
-      right: -70px;
-    }
-
-    .progress-ring {
-      width: 190px;
-      height: 190px;
-      margin: 5px auto 25px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background:
-        conic-gradient(
-          #43D9E6 0deg,
-          #43D9E6 130deg,
-          rgba(255,255,255,0.08) 130deg,
-          rgba(255,255,255,0.08) 360deg
+        linear-gradient(
+          145deg,
+          rgba(67, 217, 230, 0.16),
+          rgba(155, 231, 215, 0.05)
         );
-      position: relative;
+      border: 1px solid rgba(67,217,230,0.18);
+      margin-bottom: 24px;
     }
 
-    .progress-ring::after {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      background: #101C2C;
-      border-radius: 50%;
-    }
-
-    .progress-text {
-      position: relative;
-      z-index: 2;
-    }
-
-    .amount {
-      font-size: 34px;
-      font-weight: 800;
-    }
-
-    .goal {
-      color: #718096;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    .hydrated {
+    .hero-label {
       color: #9BE7D7;
       font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .next-time {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .countdown {
+      color: #718096;
+      font-size: 14px;
       margin-bottom: 22px;
     }
 
-    .add-water {
+    .drink-button {
       width: 100%;
-      padding: 16px;
+      min-height: 52px;
       border: none;
       border-radius: 16px;
       background: #43D9E6;
       color: #101C2C;
-      font-size: 16px;
       font-weight: 800;
-      cursor: pointer;
+      font-size: 15px;
     }
 
-    .add-water:active {
+    .drink-button:active {
       transform: scale(0.98);
     }
 
-    .section {
-      margin-top: 28px;
+    .progress-card {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 26px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 13px;
+    }
+
+    .progress-header strong {
+      font-size: 15px;
+    }
+
+    .progress-header span {
+      color: #9BE7D7;
+      font-size: 13px;
+    }
+
+    .progress-track {
+      height: 10px;
+      width: 100%;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        #43D9E6,
+        #9BE7D7
+      );
+      transition: width 0.35s ease;
     }
 
     .section-title {
@@ -176,42 +179,131 @@
     }
 
     .section-title h2 {
-      font-size: 17px;
+      font-size: 18px;
     }
 
     .section-title span {
       color: #718096;
-      font-size: 13px;
+      font-size: 12px;
     }
 
-    .next-card {
+    .schedule {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .schedule-item {
       display: flex;
       align-items: center;
-      gap: 15px;
-      padding: 17px;
+      justify-content: space-between;
+      padding: 15px;
       border-radius: 18px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.06);
     }
 
+    .schedule-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .drop {
-      width: 45px;
-      height: 45px;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 14px;
-      background: rgba(67, 217, 230, 0.12);
-      font-size: 21px;
+      background: rgba(67,217,230,0.12);
+      font-size: 19px;
     }
 
-    .next-info h3 {
+    .schedule-info strong {
+      display: block;
       font-size: 14px;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
-    .next-info p {
+    .schedule-info span {
       color: #718096;
+      font-size: 11px;
+    }
+
+    .status {
+      font-size: 12px;
+      font-weight: 700;
+      color: #718096;
+    }
+
+    .status.done {
+      color: #9BE7D7;
+    }
+
+    .empty {
+      padding: 25px;
+      text-align: center;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      color: #718096;
+      font-size: 13px;
+    }
+
+    .settings-panel {
+      display: none;
+      margin-top: 26px;
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .settings-panel.open {
+      display: block;
+    }
+
+    .settings-panel h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
+      display: block;
+      color: #9BE7D7;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 13px;
+      outline: none;
+      background: #182638;
+      color: #F4FAFA;
+    }
+
+    .save-settings {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #43D9E6;
+      color: #101C2C;
+      font-weight: 800;
+    }
+
+    .message {
+      min-height: 18px;
+      margin-top: 10px;
+      color: #9BE7D7;
       font-size: 12px;
     }
   </style>
@@ -223,121 +315,574 @@
 
     <header class="top">
       <div class="brand">AQUORA</div>
-      <button class="settings">⚙</button>
+
+      <button
+        class="settings"
+        id="settingsButton"
+        type="button"
+        aria-label="Open settings"
+      >
+        ⚙
+      </button>
     </header>
 
     <section class="greeting">
-      <p>Good morning 👋</p>
+      <p id="greetingText">Good morning 👋</p>
       <h1>Stay refreshed.</h1>
     </section>
 
-    <section class="water-card">
+    <section class="hero">
 
-      <div class="progress-ring">
-        <div class="progress-text">
-          <div class="amount">0.0 L</div>
-          <div class="goal">of 2.5 L</div>
-        </div>
+      <div class="hero-label">
+        NEXT WATER REMINDER
       </div>
 
-      <div class="hydrated">
-        0% of your daily goal
+      <div class="next-time" id="nextTime">
+        Setting up...
       </div>
 
-      <button class="add-water">
-        + Add Water
+      <div class="countdown" id="countdown">
+        Preparing your schedule
+      </div>
+
+      <button
+        class="drink-button"
+        id="drinkButton"
+        type="button"
+      >
+        💧 I Drank Water
       </button>
 
     </section>
 
-    <section class="section">
+    <section class="progress-card">
 
-      <div class="section-title">
-        <h2>Next reminder</h2>
-        <span>Today</span>
+      <div class="progress-header">
+        <strong>Today's progress</strong>
+        <span id="progressText">0 / 8 drinks</span>
       </div>
 
-      <div class="next-card">
-
-        <div class="drop">💧</div>
-
-        <div class="next-info">
-          <h3>Time for some water</h3>
-          <p>Your next reminder will appear here.</p>
-        </div>
-
+      <div class="progress-track">
+        <div
+          class="progress-fill"
+          id="progressFill"
+        ></div>
       </div>
 
     </section>
 
+    <section>
+
+      <div class="section-title">
+        <h2>Today's schedule</h2>
+        <span id="scheduleDate"></span>
+      </div>
+
+      <div
+        class="schedule"
+        id="schedule"
+      ></div>
+
+    </section>
+
+    <section
+      class="settings-panel"
+      id="settingsPanel"
+    >
+
+      <h2>Hydration schedule</h2>
+
+      <div class="field">
+        <label for="drinksPerDay">
+          DRINKS PER DAY
+        </label>
+
+        <select id="drinksPerDay">
+          <option value="6">6 drinks</option>
+          <option value="7">7 drinks</option>
+          <option value="8" selected>8 drinks</option>
+          <option value="9">9 drinks</option>
+          <option value="10">10 drinks</option>
+          <option value="12">12 drinks</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="startTime">
+          START REMINDERS
+        </label>
+
+        <input
+          id="startTime"
+          type="time"
+          value="07:00"
+        >
+      </div>
+
+      <div class="field">
+        <label for="endTime">
+          END REMINDERS
+        </label>
+
+        <input
+          id="endTime"
+          type="time"
+          value="21:00"
+        >
+      </div>
+
+      <button
+        class="save-settings"
+        id="saveSettings"
+        type="button"
+      >
+        Save Schedule
+      </button>
+
+      <div
+        class="message"
+        id="settingsMessage"
+      ></div>
+
+    </section>
+
   </main>
-<script>
- <script>
-  let waterConsumed =
-    Number(localStorage.getItem("aquoraWater")) || 0;
 
-  const dailyGoal = 2500;
+  <script>
+    const settingsButton =
+      document.getElementById("settingsButton");
 
-  const addWaterButton = document.querySelector(".add-water");
-  const amountDisplay = document.querySelector(".amount");
-  const hydratedDisplay = document.querySelector(".hydrated");
-  const progressRing = document.querySelector(".progress-ring");
+    const settingsPanel =
+      document.getElementById("settingsPanel");
 
-  function updateWaterDisplay() {
-    const litres = (waterConsumed / 1000).toFixed(1);
-    const percentage = Math.round(
-      (waterConsumed / dailyGoal) * 100
-    );
+    const drinksPerDay =
+      document.getElementById("drinksPerDay");
 
-    const degrees = (percentage / 100) * 360;
+    const startTime =
+      document.getElementById("startTime");
 
-    amountDisplay.textContent = litres + " L";
+    const endTime =
+      document.getElementById("endTime");
 
-    hydratedDisplay.textContent =
-      percentage + "% of your daily goal";
+    const saveSettings =
+      document.getElementById("saveSettings");
 
-    progressRing.style.background = `
-      conic-gradient(
-        #43D9E6 0deg,
-        #43D9E6 ${degrees}deg,
-        rgba(255,255,255,0.08) ${degrees}deg,
-        rgba(255,255,255,0.08) 360deg
-      )
-    `;
-  }
+    const settingsMessage =
+      document.getElementById("settingsMessage");
 
-  addWaterButton.addEventListener("click", function () {
-    waterConsumed += 250;
+    const schedule =
+      document.getElementById("schedule");
 
-    if (waterConsumed > dailyGoal) {
-      waterConsumed = dailyGoal;
+    const nextTime =
+      document.getElementById("nextTime");
+
+    const countdown =
+      document.getElementById("countdown");
+
+    const progressText =
+      document.getElementById("progressText");
+
+    const progressFill =
+      document.getElementById("progressFill");
+
+    const drinkButton =
+      document.getElementById("drinkButton");
+
+    const scheduleDate =
+      document.getElementById("scheduleDate");
+
+    const greetingText =
+      document.getElementById("greetingText");
+
+    let settings = JSON.parse(
+      localStorage.getItem("aquoraSettings")
+    ) || {
+      drinks: 8,
+      start: "07:00",
+      end: "21:00"
+    };
+
+    let completed = Number(
+      localStorage.getItem("aquoraCompleted")
+    ) || 0;
+
+    let generatedSchedule = [];
+
+    function getTodayKey() {
+      const today = new Date();
+
+      return today.getFullYear() +
+        "-" +
+        String(today.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(today.getDate()).padStart(2, "0");
     }
 
-    localStorage.setItem("aquoraWater", waterConsumed);
+    function resetDailyProgress() {
+      const savedDay =
+        localStorage.getItem("aquoraDay");
 
-    updateWaterDisplay();
-  });
+      const todayKey = getTodayKey();
 
-  updateWaterDisplay();
-</script>
-    const litres = (waterConsumed / 1000).toFixed(1);
-    const percentage = Math.round((waterConsumed / dailyGoal) * 100);
-    const degrees = (percentage / 100) * 360;
+      if (savedDay !== todayKey) {
+        completed = 0;
 
-    amountDisplay.textContent = litres + " L";
+        localStorage.setItem(
+          "aquoraCompleted",
+          "0"
+        );
 
-    hydratedDisplay.textContent =
-      percentage + "% of your daily goal";
+        localStorage.setItem(
+          "aquoraDay",
+          todayKey
+        );
+      }
+    }
 
-    progressRing.style.background = `
-      conic-gradient(
-        #43D9E6 0deg,
-        #43D9E6 ${degrees}deg,
-        rgba(255,255,255,0.08) ${degrees}deg,
-        rgba(255,255,255,0.08) 360deg
-      )
-    `;
-  });
-</script>
+    function timeToMinutes(time) {
+      const parts = time.split(":");
+
+      return (
+        Number(parts[0]) * 60 +
+        Number(parts[1])
+      );
+    }
+
+    function minutesToTime(minutes) {
+      const hours =
+        Math.floor(minutes / 60) % 24;
+
+      const mins =
+        minutes % 60;
+
+      const period =
+        hours >= 12 ? "PM" : "AM";
+
+      const displayHour =
+        hours % 12 || 12;
+
+      return (
+        displayHour +
+        ":" +
+        String(mins).padStart(2, "0") +
+        " " +
+        period
+      );
+    }
+
+    function createSchedule() {
+      const count =
+        Number(settings.drinks);
+
+      const start =
+        timeToMinutes(settings.start);
+
+      const end =
+        timeToMinutes(settings.end);
+
+      if (
+        count < 1 ||
+        end <= start
+      ) {
+        return [];
+      }
+
+      if (count === 1) {
+        return [start];
+      }
+
+      const interval =
+        (end - start) / (count - 1);
+
+      const times = [];
+
+      for (let i = 0; i < count; i++) {
+        times.push(
+          Math.round(start + interval * i)
+        );
+      }
+
+      return times;
+    }
+
+    function renderSchedule() {
+      generatedSchedule =
+        createSchedule();
+
+      schedule.innerHTML = "";
+
+      if (!generatedSchedule.length) {
+        schedule.innerHTML = `
+          <div class="empty">
+            Please choose a valid start and end time.
+          </div>
+        `;
+
+        return;
+      }
+
+      generatedSchedule.forEach(
+        (minutes, index) => {
+
+          const item =
+            document.createElement("div");
+
+          item.className =
+            "schedule-item";
+
+          const done =
+            index < completed;
+
+          item.innerHTML = `
+            <div class="schedule-left">
+
+              <div class="drop">
+                ${done ? "✓" : "💧"}
+              </div>
+
+              <div class="schedule-info">
+
+                <strong>
+                  ${minutesToTime(minutes)}
+                </strong>
+
+                <span>
+                  Drink ${index + 1} of ${generatedSchedule.length}
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="status ${done ? "done" : ""}">
+              ${done ? "Completed" : "Upcoming"}
+            </div>
+          `;
+
+          schedule.appendChild(item);
+        }
+      );
+
+      updateNextReminder();
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const total =
+        generatedSchedule.length;
+
+      const safeCompleted =
+        Math.min(completed, total);
+
+      progressText.textContent =
+        safeCompleted +
+        " / " +
+        total +
+        " drinks";
+
+      const percentage =
+        total === 0
+          ? 0
+          : (safeCompleted / total) * 100;
+
+      progressFill.style.width =
+        percentage + "%";
+    }
+
+    function updateNextReminder() {
+      if (!generatedSchedule.length) {
+        nextTime.textContent = "--";
+        countdown.textContent =
+          "Set your schedule";
+        return;
+      }
+
+      const now = new Date();
+
+      const currentMinutes =
+        now.getHours() * 60 +
+        now.getMinutes();
+
+      let nextIndex =
+        generatedSchedule.findIndex(
+          time => time > currentMinutes
+        );
+
+      if (nextIndex === -1) {
+        nextTime.textContent =
+          "All done 🎉";
+
+        countdown.textContent =
+          "You've completed today's schedule.";
+
+        return;
+      }
+
+      const next =
+        generatedSchedule[nextIndex];
+
+      nextTime.textContent =
+        minutesToTime(next);
+
+      const difference =
+        next - currentMinutes;
+
+      const hours =
+        Math.floor(difference / 60);
+
+      const minutes =
+        difference % 60;
+
+      if (hours > 0) {
+        countdown.textContent =
+          "in " +
+          hours +
+          "h " +
+          minutes +
+          "m";
+      } else {
+        countdown.textContent =
+          "in " +
+          minutes +
+          " minutes";
+      }
+    }
+
+    function updateGreeting() {
+      const hour =
+        new Date().getHours();
+
+      if (hour < 12) {
+        greetingText.textContent =
+          "Good morning 👋";
+      } else if (hour < 18) {
+        greetingText.textContent =
+          "Good afternoon 👋";
+      } else {
+        greetingText.textContent =
+          "Good evening 👋";
+      }
+    }
+
+    settingsButton.addEventListener(
+      "click",
+      () => {
+        settingsPanel.classList.toggle(
+          "open"
+        );
+      }
+    );
+
+    saveSettings.addEventListener(
+      "click",
+      () => {
+
+        const start =
+          startTime.value;
+
+        const end =
+          endTime.value;
+
+        if (!start || !end) {
+          settingsMessage.textContent =
+            "Please choose both times.";
+
+          return;
+        }
+
+        if (
+          timeToMinutes(end) <=
+          timeToMinutes(start)
+        ) {
+          settingsMessage.textContent =
+            "End time must be after start time.";
+
+          return;
+        }
+
+        settings = {
+          drinks:
+            Number(drinksPerDay.value),
+
+          start,
+
+          end
+        };
+
+        localStorage.setItem(
+          "aquoraSettings",
+          JSON.stringify(settings)
+        );
+
+        completed = 0;
+
+        localStorage.setItem(
+          "aquoraCompleted",
+          "0"
+        );
+
+        settingsMessage.textContent =
+          "Schedule saved ✓";
+
+        renderSchedule();
+      }
+    );
+
+    drinkButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          completed <
+          generatedSchedule.length
+        ) {
+          completed++;
+
+          localStorage.setItem(
+            "aquoraCompleted",
+            completed
+          );
+
+          renderSchedule();
+        }
+      }
+    );
+
+    function initialize() {
+
+      resetDailyProgress();
+
+      drinksPerDay.value =
+        settings.drinks;
+
+      startTime.value =
+        settings.start;
+
+      endTime.value =
+        settings.end;
+
+      scheduleDate.textContent =
+        new Date().toLocaleDateString(
+          undefined,
+          {
+            weekday: "short",
+            month: "short",
+            day: "numeric"
+          }
+        );
+
+      updateGreeting();
+
+      renderSchedule();
+
+      setInterval(
+        updateNextReminder,
+        30000
+      );
+    }
+
+    initialize();
+  </script>
+
 </body>
 </html>
