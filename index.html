@@ -272,13 +272,39 @@
 
   </main>
 <script>
-  let waterConsumed = 0;
+ <script>
+  let waterConsumed =
+    Number(localStorage.getItem("aquoraWater")) || 0;
+
   const dailyGoal = 2500;
 
   const addWaterButton = document.querySelector(".add-water");
   const amountDisplay = document.querySelector(".amount");
   const hydratedDisplay = document.querySelector(".hydrated");
   const progressRing = document.querySelector(".progress-ring");
+
+  function updateWaterDisplay() {
+    const litres = (waterConsumed / 1000).toFixed(1);
+    const percentage = Math.round(
+      (waterConsumed / dailyGoal) * 100
+    );
+
+    const degrees = (percentage / 100) * 360;
+
+    amountDisplay.textContent = litres + " L";
+
+    hydratedDisplay.textContent =
+      percentage + "% of your daily goal";
+
+    progressRing.style.background = `
+      conic-gradient(
+        #43D9E6 0deg,
+        #43D9E6 ${degrees}deg,
+        rgba(255,255,255,0.08) ${degrees}deg,
+        rgba(255,255,255,0.08) 360deg
+      )
+    `;
+  }
 
   addWaterButton.addEventListener("click", function () {
     waterConsumed += 250;
@@ -287,6 +313,13 @@
       waterConsumed = dailyGoal;
     }
 
+    localStorage.setItem("aquoraWater", waterConsumed);
+
+    updateWaterDisplay();
+  });
+
+  updateWaterDisplay();
+</script>
     const litres = (waterConsumed / 1000).toFixed(1);
     const percentage = Math.round((waterConsumed / dailyGoal) * 100);
     const degrees = (percentage / 100) * 360;
