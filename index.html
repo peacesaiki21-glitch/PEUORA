@@ -240,7 +240,10 @@
 
     .status.done {
       color: #9BE7D7;
-    }
+    } .status.missed {
+  color: #718096;
+  background: rgba(113, 128, 150, 0.12);
+      }
 
     .empty {
       padding: 25px;
@@ -1014,7 +1017,7 @@ function renderSchedule() {
         </div>
       </div>
 
-      <div class="status ${done ? "done" : ""}">
+      <div class="status ${done ? "done" : missed ? "missed" : ""}">
         ${done ? "Completed" : "Upcoming"}
       </div>
     `;
