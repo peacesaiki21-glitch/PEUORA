@@ -1244,6 +1244,33 @@ notificationButton.addEventListener("click", async () => {
     return;
   }
 
+  if (Notification.permission === "granted") {
+    notificationButton.textContent =
+      "🔔 Reminders Enabled ✓";
+    return;
+  }
+
+  const permission =
+    await Notification.requestPermission();
+
+  if (permission === "granted") {
+    notificationButton.textContent =
+      "🔔 Reminders Enabled ✓";
+
+    new Notification("PEUORA 💧", {
+      body: "Reminders are now enabled."
+    });
+  } else {
+    notificationButton.textContent =
+      "🔕 Reminders Blocked";
+  }
+});
+  if (!("Notification" in window)) {
+    notificationButton.textContent =
+      "Notifications not supported";
+    return;
+  }
+
   const permission =
     await Notification.requestPermission();
 
