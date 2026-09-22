@@ -882,7 +882,357 @@
     }
 
     initialize();
-  </script>
+  <script>
+const settingsButton = document.getElementById("settingsButton");
+const settingsPanel = document.getElementById("settingsPanel");
 
+const drinksPerDay = document.getElementById("drinksPerDay");
+const startTime = document.getElementById("startTime");
+const endTime = document.getElementById("endTime");
+const saveSettings = document.getElementById("saveSettings");
+const settingsMessage = document.getElementById("settingsMessage");
+
+const schedule = document.getElementById("schedule");
+const nextTime = document.getElementById("nextTime");
+const countdown = document.getElementById("countdown");
+
+const progressText = document.getElementById("progressText");
+const progressFill = document.getElementById("progressFill");
+
+const drinkButton = document.getElementById("drinkButton");
+const scheduleDate = document.getElementById("scheduleDate");
+const greetingText = document.getElementById("greetingText");
+
+let settings = JSON.parse(
+  localStorage.getItem("aquoraSettings")
+) || {
+  drinks: 8,
+  start: "07:00",
+  end: "21:00"
+};
+
+let completed = Number(
+  localStorage.getItem("aquoraCompleted")
+) || 0;
+
+let generatedSchedule = [];
+
+function getTodayKey() {
+  const today = new Date();
+
+  return (
+    today.getFullYear() +
+    "-" +
+    String(today.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(today.getDate()).padStart(2, "0")
+  );
+}
+
+function resetDailyProgress() {
+  const todayKey = getTodayKey();
+  const savedDay = localStorage.getItem("aquoraDay");
+
+  if (savedDay !== todayKey) {
+    completed = 0;
+
+    localStorage.setItem("aquoraCompleted", "0");
+    localStorage.setItem("aquoraDay", todayKey);
+  }
+}
+
+function timeToMinutes(time) {
+  const parts = time.split(":");
+
+  return Number(parts[0]) * 60 + Number(parts[1]);
+}
+
+function minutesToTime(minutes) {
+  const hours = Math.floor(minutes / 60) % 24;
+  const mins = minutes % 60;
+
+  const period = hours >= 12 ? "PM" : "AM";
+  const displayHour = hours % 12 || 12;
+
+  return (
+    displayHour +
+    ":" +
+    String(mins).padStart(2, "0") +
+    " " +
+    period
+  );
+}
+
+function createSchedule() {
+  const count = Number(settings.drinks);
+
+  const start = timeToMinutes(settings.start);
+  const end = timeToMinutes(settings.end);
+
+  if (count < 1 || end <= start) {
+    return [];
+  }
+
+  if (count === 1) {
+    return [start];
+  }
+
+  const interval = (end - start) / (count - 1);
+
+  const times = [];
+
+  for (let i = 0; i < count; i++) {
+    times.push(Math.round(start + interval * i));
+  }
+
+  return times;
+}
+
+function renderSchedule() {
+  generatedSchedule = createSchedule();
+
+  schedule.innerHTML = "";
+
+  if (!generatedSchedule.length) {
+    schedule.innerHTML =
+      '<div class="empty">Please choose a valid schedule.</div>';
+
+    return;
+  }
+
+  generatedSchedule.forEach((minutes, index) => {
+    const item = document.createElement("div");
+
+    item.className = "schedule-item";
+
+    const done = index < completed;
+
+    item.innerHTML = `
+      <div class="schedule-left">
+        <div class="drop">${done ? "✓" : "💧"}</div>
+
+        <div class="schedule-info">
+          <strong>${minutesToTime(minutes)}</strong>
+          <span>Drink ${index + 1} of ${generatedSchedule.length}</span>
+        </div>
+      </div>
+
+      <div class="status ${done ? "done" : ""}">
+        ${done ? "Completed" : "Upcoming"}
+      </div>
+    `;
+
+    schedule.appendChild(item);
+  });
+
+  updateNextReminder();
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = generatedSchedule.length;
+
+  const safeCompleted = Math.min(
+    completed,
+    total
+  );
+
+  progressText.textContent =
+    safeCompleted + " / " + total + " drinks";
+
+  const percentage =
+    total === 0
+      ? 0
+      : (safeCompleted / total) * 100;
+
+  progressFill.style.width =
+    percentage + "%";
+}
+
+function updateNextReminder() {
+  if (!generatedSchedule.length) {
+    nextTime.textContent = "--";
+    countdown.textContent = "Set your schedule";
+    return;
+  }
+
+  const now = new Date();
+
+  const currentMinutes =
+    now.getHours() * 60 +
+    now.getMinutes();
+
+  const nextIndex =
+    generatedSchedule.findIndex(
+      time => time >= currentMinutes
+    );
+
+  if (nextIndex === -1) {
+    nextTime.textContent = "Tomorrow";
+    countdown.textContent =
+      "Your next reminder is tomorrow.";
+    return;
+  }
+
+  const next = generatedSchedule[nextIndex];
+
+  nextTime.textContent =
+    minutesToTime(next);
+
+  let difference =
+    next - currentMinutes;
+
+  if (difference < 0) {
+    difference += 24 * 60;
+  }
+
+  const hours =
+    Math.floor(difference / 60);
+
+  const minutes =
+    difference % 60;
+
+  if (hours > 0) {
+    countdown.textContent =
+      "in " +
+      hours +
+      "h " +
+      minutes +
+      "m";
+  } else {
+    countdown.textContent =
+      "in " +
+      minutes +
+      " minutes";
+  }
+}
+
+function updateGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 12) {
+    greetingText.textContent =
+      "Good morning 👋";
+  } else if (hour < 18) {
+    greetingText.textContent =
+      "Good afternoon 👋";
+  } else {
+    greetingText.textContent =
+      "Good evening 👋";
+  }
+}
+
+settingsButton.addEventListener(
+  "click",
+  () => {
+    settingsPanel.classList.toggle("open");
+  }
+);
+
+saveSettings.addEventListener(
+  "click",
+  () => {
+    const start = startTime.value;
+    const end = endTime.value;
+
+    if (!start || !end) {
+      settingsMessage.textContent =
+        "Please choose both times.";
+
+      return;
+    }
+
+    if (
+      timeToMinutes(end) <=
+      timeToMinutes(start)
+    ) {
+      settingsMessage.textContent =
+        "End time must be after start time.";
+
+      return;
+    }
+
+    settings = {
+      drinks: Number(drinksPerDay.value),
+      start: start,
+      end: end
+    };
+
+    localStorage.setItem(
+      "aquoraSettings",
+      JSON.stringify(settings)
+    );
+
+    completed = 0;
+
+    localStorage.setItem(
+      "aquoraCompleted",
+      "0"
+    );
+
+    localStorage.setItem(
+      "aquoraDay",
+      getTodayKey()
+    );
+
+    settingsMessage.textContent =
+      "Schedule saved ✓";
+
+    renderSchedule();
+  }
+);
+
+drinkButton.addEventListener(
+  "click",
+  () => {
+    if (
+      completed <
+      generatedSchedule.length
+    ) {
+      completed++;
+
+      localStorage.setItem(
+        "aquoraCompleted",
+        completed
+      );
+
+      renderSchedule();
+    }
+  }
+);
+
+function initialize() {
+  resetDailyProgress();
+
+  drinksPerDay.value =
+    settings.drinks;
+
+  startTime.value =
+    settings.start;
+
+  endTime.value =
+    settings.end;
+
+  scheduleDate.textContent =
+    new Date().toLocaleDateString(
+      undefined,
+      {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      }
+    );
+
+  updateGreeting();
+  renderSchedule();
+
+  setInterval(
+    updateNextReminder,
+    30000
+  );
+}
+
+initialize();
+</script>
 </body>
 </html>
