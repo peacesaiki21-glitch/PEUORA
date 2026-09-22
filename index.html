@@ -345,14 +345,13 @@
         Preparing your schedule
       </div>
 
-      <button
-        class="drink-button"
-        id="drinkButton"
-        type="button"
-      >
-        💧 I Drank Water
-      </button>
+     <button id="drinkButton" class="drink-button">
+  💧 I Drank Water
+</button>
 
+<button id="notificationButton" class="secondary-button">
+  🔔 Enable Reminders
+</button>
     </section>
 
     <section class="progress-card">
@@ -1231,7 +1230,68 @@ function initialize() {
     30000
   );
 }
+const notificationButton =
+  document.getElementById("notificationButton");
 
+notificationButton.addEventListener("click", async () => {
+  if (!("Notification" in window)) {
+    notificationButton.textContent =
+      "Notifications not supported";
+    return;
+  }
+
+  const permission =
+    await Notification.requestPermission();
+
+  if (permission === "granted") {
+    notificationButton.textContent =
+      "🔔 Reminders Enabled ✓";
+  } else {
+    notificationButton.textContent =
+      "🔕 Reminders Blocked";
+  }
+});
+
+function checkReminder() {
+  if (!("Notification" in window)) return;
+
+  if (Notification.permission !== "granted") return;
+
+  if (!generatedSchedule.length) return;
+
+  const now = new Date();
+
+  const currentMinutes =
+    now.getHours() * 60 + now.getMinutes();
+
+  generatedSchedule.forEach((reminderTime, index) => {
+    if (reminderTime !== currentMinutes) return;
+
+    if (index < completed) return;
+
+    const reminderKey =
+      getTodayKey() + "-" + index;
+
+    if (
+      localStorage.getItem(
+        "aquoraReminder-" + reminderKey
+      )
+    ) {
+      return;
+    }
+
+    new Notification("AQUORA 💧", {
+      body: "It's time to drink some water. Stay refreshed!"
+    });
+
+    localStorage.setItem(
+      "aquoraReminder-" + reminderKey,
+      "sent"
+    );
+  });
+}
+
+setInterval(checkReminder, 30000);
 initialize();
 </script>
 </body>
