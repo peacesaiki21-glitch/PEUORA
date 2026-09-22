@@ -271,6 +271,40 @@
     </section>
 
   </main>
+<script>
+  let waterConsumed = 0;
+  const dailyGoal = 2500;
 
+  const addWaterButton = document.querySelector(".add-water");
+  const amountDisplay = document.querySelector(".amount");
+  const hydratedDisplay = document.querySelector(".hydrated");
+  const progressRing = document.querySelector(".progress-ring");
+
+  addWaterButton.addEventListener("click", function () {
+    waterConsumed += 250;
+
+    if (waterConsumed > dailyGoal) {
+      waterConsumed = dailyGoal;
+    }
+
+    const litres = (waterConsumed / 1000).toFixed(1);
+    const percentage = Math.round((waterConsumed / dailyGoal) * 100);
+    const degrees = (percentage / 100) * 360;
+
+    amountDisplay.textContent = litres + " L";
+
+    hydratedDisplay.textContent =
+      percentage + "% of your daily goal";
+
+    progressRing.style.background = `
+      conic-gradient(
+        #43D9E6 0deg,
+        #43D9E6 ${degrees}deg,
+        rgba(255,255,255,0.08) ${degrees}deg,
+        rgba(255,255,255,0.08) 360deg
+      )
+    `;
+  });
+</script>
 </body>
 </html>
