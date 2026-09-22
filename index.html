@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101C2C">
+
+  <title>AQUORA — Stay refreshed. Stay on track.</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #101C2C;
+      color: #F4FAFA;
+      min-height: 100vh;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 28px 20px;
+      background:
+        radial-gradient(
+          circle at 80% 10%,
+          rgba(67, 217, 230, 0.15),
+          transparent 30%
+        ),
+        #101C2C;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 35px;
+    }
+
+    .brand {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #43D9E6;
+    }
+
+    .settings {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(155, 231, 215, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #F4FAFA;
+      font-size: 19px;
+    }
+
+    .greeting {
+      margin-bottom: 25px;
+    }
+
+    .greeting p {
+      color: #718096;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .greeting h1 {
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .water-card {
+      position: relative;
+      overflow: hidden;
+      padding: 30px 22px;
+      border-radius: 28px;
+      background: linear-gradient(
+        145deg,
+        rgba(67, 217, 230, 0.16),
+        rgba(155, 231, 215, 0.05)
+      );
+      border: 1px solid rgba(67, 217, 230, 0.18);
+      text-align: center;
+    }
+
+    .water-card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: rgba(67, 217, 230, 0.08);
+      border-radius: 50%;
+      top: -90px;
+      right: -70px;
+    }
+
+    .progress-ring {
+      width: 190px;
+      height: 190px;
+      margin: 5px auto 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        conic-gradient(
+          #43D9E6 0deg,
+          #43D9E6 130deg,
+          rgba(255,255,255,0.08) 130deg,
+          rgba(255,255,255,0.08) 360deg
+        );
+      position: relative;
+    }
+
+    .progress-ring::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      background: #101C2C;
+      border-radius: 50%;
+    }
+
+    .progress-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .amount {
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .goal {
+      color: #718096;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .hydrated {
+      color: #9BE7D7;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .add-water {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 16px;
+      background: #43D9E6;
+      color: #101C2C;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .add-water:active {
+      transform: scale(0.98);
+    }
+
+    .section {
+      margin-top: 28px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+      font-size: 17px;
+    }
+
+    .section-title span {
+      color: #718096;
+      font-size: 13px;
+    }
+
+    .next-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 17px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .drop {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      background: rgba(67, 217, 230, 0.12);
+      font-size: 21px;
+    }
+
+    .next-info h3 {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .next-info p {
+      color: #718096;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header class="top">
+      <div class="brand">AQUORA</div>
+      <button class="settings">⚙</button>
+    </header>
+
+    <section class="greeting">
+      <p>Good morning 👋</p>
+      <h1>Stay refreshed.</h1>
+    </section>
+
+    <section class="water-card">
+
+      <div class="progress-ring">
+        <div class="progress-text">
+          <div class="amount">0.0 L</div>
+          <div class="goal">of 2.5 L</div>
+        </div>
+      </div>
+
+      <div class="hydrated">
+        0% of your daily goal
+      </div>
+
+      <button class="add-water">
+        + Add Water
+      </button>
+
+    </section>
+
+    <section class="section">
+
+      <div class="section-title">
+        <h2>Next reminder</h2>
+        <span>Today</span>
+      </div>
+
+      <div class="next-card">
+
+        <div class="drop">💧</div>
+
+        <div class="next-info">
+          <h3>Time for some water</h3>
+          <p>Your next reminder will appear here.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
