@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -570,39 +571,34 @@
     }
 
     function createSchedule() {
-      const count =
-        Number(settings.drinks);
+  const count = Number(settings.drinks);
+  const start = timeToMinutes(settings.start);
+  const end = timeToMinutes(settings.end);
 
-      const start =
-        timeToMinutes(settings.start);
+  if (!count || count < 1) {
+    return [];
+  }
 
-      const end =
-        timeToMinutes(settings.end);
+  if (end <= start) {
+    return [];
+  }
 
-      if (
-        count < 1 ||
-        end <= start
-      ) {
-        return [];
-      }
+  if (count === 1) {
+    return [start];
+  }
 
-      if (count === 1) {
-        return [start];
-      }
+  const interval = (end - start) / (count - 1);
+  const times = [];
 
-      const interval =
-        (end - start) / (count - 1);
+  for (let i = 0; i < count; i++) {
+    times.push(
+      Math.round(start + interval * i)
+    );
+  }
 
-      const times = [];
+  return times;
+    
 
-      for (let i = 0; i < count; i++) {
-        times.push(
-          Math.round(start + interval * i)
-        );
-      }
-
-      return times;
-    }
 
     function renderSchedule() {
       generatedSchedule =
@@ -629,8 +625,13 @@
           item.className =
             "schedule-item";
 
-          const done =
-            index < completed;
+          const now = new Date();
+const currentMinutes =
+  now.getHours() * 60 + now.getMinutes();
+
+const done = index < completed;
+const missed =
+  !done && generatedSchedule[index] < currentMinutes;
 
           item.innerHTML = `
             <div class="schedule-left">
@@ -744,8 +745,8 @@
           "in " +
           minutes +
           " minutes";
-      }
     }
+    
 
     function updateGreeting() {
       const hour =
